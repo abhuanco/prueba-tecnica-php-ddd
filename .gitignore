@@ -1,0 +1,8 @@
+.idea
+vendor
+composer.lock
+.env
+/logs/email.log
+/public/coverage/
+.DS_Store
+/.phpunit.result.cache

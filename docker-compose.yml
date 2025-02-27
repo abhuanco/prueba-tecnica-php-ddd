@@ -1,0 +1,42 @@
+services:
+  nginx:
+    image: nginx
+    container_name: ddd-nginx
+    restart: always
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "9090:80"
+    depends_on:
+      - app
+
+  app:
+    build: docker/php
+    container_name: ddd-app
+    restart: always
+    volumes:
+      - '.:/var/www/html'
+    depends_on:
+      - mysql
+    environment:
+      XDEBUG_CONFIG: client_host=host.docker.internal
+      PHP_IDE_CONFIG: "serverName=architecture.php.ddd"
+      XDEBUG_REMOTE_CONNECT_BACK: 1
+
+  mysql:
+    image: mysql:5.7
+    container_name: ddd-mysql
+    hostname: ddd-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

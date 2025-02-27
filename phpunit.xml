@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd" bootstrap="vendor/autoload.php" colors="true">
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="PHPUNIT_RUNNING" value="sqlite"/>
+    </php>
+    <testsuites>
+        <testsuite name="Domain Driven Design PHP">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <coverage>
+        <report>
+            <html outputDirectory="public/coverage"/>
+        </report>
+    </coverage>
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+        <exclude>
+            <directory>tests</directory>
+        </exclude>
+    </source>
+</phpunit>
