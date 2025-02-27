@@ -6,9 +6,6 @@ Antes de comenzar, asegúrate de tener las siguientes herramientas instaladas en
 - **Docker** (versión recomendada: `24.x` o superior)
 - **Docker Compose** (versión recomendada: `2.x` o superior)
 - **Git** (versión recomendada: `2.40` o superior)
-- **PHP** (versión recomendada: `8.4` o superior)
-- **Composer** (versión recomendada: `2.x` o superior)
-- **MySQL** (versión recomendada: `8.x` o superior)
 - **Make** (para ejecutar comandos de automatización con Makefile)
 
 ## Instalación y Configuración del Proyecto
