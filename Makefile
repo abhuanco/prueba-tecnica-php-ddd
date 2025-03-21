@@ -4,6 +4,9 @@ up:
 install:
 	docker exec -it ddd-app composer install
 
+generate-migration:
+	docker exec -it ddd-app ./vendor/bin/doctrine-migrations generate
+
 migrate:
 	docker exec -it ddd-app ./vendor/bin/doctrine-migrations migrate
 

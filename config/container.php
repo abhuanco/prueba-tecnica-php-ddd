@@ -1,13 +1,15 @@
 <?php
 
 use App\User\Application\UseCase\ListUsersUseCase;
+use App\User\Application\UseCase\UpdateUserUseCase;
 use App\User\UI\Http\Controllers\ListUsersController;
+use App\User\UI\Http\Controllers\UpdateUserController;
 use App\User\UI\Http\Routes\RouteDispatcher;
 use Psr\Container\ContainerInterface;
 use function DI\create;
 use function DI\get;
 use Psr\Log\LoggerInterface;
-use App\User\UI\Http\Controllers\RegisterUserController;
+use App\User\UI\Http\Controllers\CreateUserController;
 use App\User\Application\UseCase\RegisterUserUseCase;
 use App\User\Infrastructure\Persistence\DoctrineUserRepository;
 use App\User\Infrastructure\Event\SimpleEventDispatcher;
@@ -31,10 +33,13 @@ return [
         get(DoctrineUserRepository::class),
         get(SimpleEventDispatcher::class)
     ),
+    CreateUserController::class => create(CreateUserController::class)->constructor(get(RegisterUserUseCase::class)),
 
     ListUsersUseCase::class => create(ListUsersUseCase::class)->constructor(get(DoctrineUserRepository::class)),
-    RegisterUserController::class => create(RegisterUserController::class)->constructor(get(RegisterUserUseCase::class)),
     ListUsersController::class => create(ListUsersController::class)->constructor(get(ListUsersUseCase::class)),
+
+    UpdateUserUseCase::class => create(UpdateUserUseCase::class)->constructor(get(DoctrineUserRepository::class)),
+    UpdateUserController::class => create(UpdateUserController::class)->constructor(get(UpdateUserUseCase::class)),
 
     'routes' => function (): mixed {
         return require __DIR__ . '/routes.php';

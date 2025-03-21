@@ -17,6 +17,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->safeLoad();
 
+$timezone = $_ENV['APP_TIMEZONE'] ?? 'UTC';
+date_default_timezone_set($timezone);
+
 $isTestEnvironment = getenv('PHPUNIT_RUNNING') === '1';
 
 $databaseName = $isTestEnvironment ? $_ENV['MYSQL_DB_TEST'] : $_ENV['MYSQL_DB'];

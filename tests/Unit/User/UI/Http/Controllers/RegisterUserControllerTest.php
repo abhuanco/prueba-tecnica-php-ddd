@@ -6,7 +6,7 @@ namespace Tests\Unit\User\UI\Http\Controllers {
     use App\User\Domain\Exceptions\FieldRequiredException;
     use InvalidArgumentException;
     use PHPUnit\Framework\TestCase;
-    use App\User\UI\Http\Controllers\RegisterUserController;
+    use App\User\UI\Http\Controllers\CreateUserController;
     use App\User\Application\UseCase\RegisterUserUseCase;
     use App\User\UI\Http\Api\Request;
     use App\User\Application\Dto\UserResponseDTO;
@@ -42,7 +42,7 @@ namespace Tests\Unit\User\UI\Http\Controllers {
                     'password' => 'secret#4D'
                 ]);
 
-            $controller = new RegisterUserController($this->useCaseMock);
+            $controller = new CreateUserController($this->useCaseMock);
 
             ob_start();
             $controller->register($this->requestMock);
@@ -74,7 +74,7 @@ namespace Tests\Unit\User\UI\Http\Controllers {
                     'password' => 'secret'
                 ]);
 
-            $controller = new RegisterUserController($this->useCaseMock);
+            $controller = new CreateUserController($this->useCaseMock);
 
             ob_start();
             $controller->register($this->requestMock);
@@ -102,7 +102,7 @@ namespace Tests\Unit\User\UI\Http\Controllers {
                     'password' => 'secret'
                 ]);
 
-            $controller = new RegisterUserController($this->useCaseMock);
+            $controller = new CreateUserController($this->useCaseMock);
 
             ob_start();
             $controller->register($this->requestMock);
@@ -131,7 +131,7 @@ namespace Tests\Unit\User\UI\Http\Controllers {
                     'password' => 'secret'
                 ]);
 
-            $controller = new RegisterUserController($this->useCaseMock);
+            $controller = new CreateUserController($this->useCaseMock);
 
             ob_start();
             $controller->register($this->requestMock);

@@ -9,7 +9,7 @@ namespace App\User\UI\Http\Controllers {
     use App\User\UI\Http\Api\Response;
     use App\User\UI\Http\Middleware\HttpErrorHandlerMiddleware;
 
-    final readonly class RegisterUserController
+    final readonly class CreateUserController
     {
         private HttpErrorHandlerMiddleware $httpErrorHandlerMiddleware;
 

@@ -31,6 +31,9 @@ namespace App\User\Domain\Entity {
         #[Column(name: 'created_at', type: 'datetime_immutable')]
         private DateTimeImmutable $createdAt;
 
+        #[Column(name: 'updated_at', type: 'datetime_immutable', nullable: true)]
+        private DateTimeImmutable $updatedAt;
+
         public function __construct(
             ?UserId            $id,
             Name               $name,
@@ -69,6 +72,41 @@ namespace App\User\Domain\Entity {
         public function getCreatedAt(): DateTimeImmutable
         {
             return $this->createdAt;
+        }
+
+        public function setId(UserId $id): void
+        {
+            $this->id = $id;
+        }
+
+        public function setName(Name $name): void
+        {
+            $this->name = $name;
+        }
+
+        public function setEmail(Email $email): void
+        {
+            $this->email = $email;
+        }
+
+        public function setPassword(Password $password): void
+        {
+            $this->password = $password;
+        }
+
+        public function setCreatedAt(DateTimeImmutable $createdAt): void
+        {
+            $this->createdAt = $createdAt;
+        }
+
+        public function getUpdatedAt(): DateTimeImmutable
+        {
+            return $this->updatedAt;
+        }
+
+        public function setUpdatedAt(DateTimeImmutable $updatedAt): void
+        {
+            $this->updatedAt = $updatedAt;
         }
     }
 }
