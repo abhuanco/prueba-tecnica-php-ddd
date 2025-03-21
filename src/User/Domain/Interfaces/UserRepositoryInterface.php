@@ -15,5 +15,10 @@ namespace App\User\Domain\Interfaces {
         public function delete(UserId $id): void;
 
         public function findByEmail(string $email): ?User;
+
+        /**
+         * @return User[]
+         */
+        public function findAll(): array;
     }
 }

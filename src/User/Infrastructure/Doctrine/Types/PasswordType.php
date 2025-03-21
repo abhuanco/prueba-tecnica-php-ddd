@@ -22,7 +22,7 @@ namespace App\User\Infrastructure\Doctrine\Types {
          */
         public function convertToPHPValue($value, AbstractPlatform $platform): ?Password
         {
-            return $value !== null ? new Password((string)$value) : null;
+            return $value !== null ? new Password((string)$value, true) : null;
         }
 
         public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed

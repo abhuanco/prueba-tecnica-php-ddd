@@ -52,6 +52,27 @@ namespace App\User\Application\Services {
             }
         }
 
+        public function sendChangePasswordEmail(string $to, string $name): bool
+        {
+            try {
+                $subject = "Contraseña, $name!";
+                $body = $this->generateChangePasswordEmail($name);
+
+                $this->mailer->addAddress($to);
+                $this->mailer->Subject = $subject;
+                $this->mailer->Body = $body;
+                $this->mailer->isHTML(true);
+
+                $this->mailer->send();
+
+                $this->logger->info("Correo de cambio de contraseña enviado a {$to}");
+                return true;
+            } catch (Exception $e) {
+                $this->logger->error("Error al enviar correo a {$to}: " . $this->mailer->ErrorInfo);
+                return false;
+            }
+        }
+
         private function generateWelcomeEmail(string $name): string
         {
             return "
@@ -62,6 +83,16 @@ namespace App\User\Application\Services {
             <p>Saludos,</p>
             <p><strong>El equipo de Domain Driven Design LLC.</strong></p>
         ";
+        }
+
+        public function generateChangePasswordEmail(string $name): string
+        {
+            return "
+            <h1>¡Hola, $name! 👋</h1>
+            <p>Recientemente has cambiado tu contraseña. Si no fuiste tú, por favor, contacta con nosotros.</p>
+            <br>
+            <p>Saludos,</p>
+            <p><strong>El equipo de Domain Driven Design LLC.</strong></p>";
         }
     }
 }

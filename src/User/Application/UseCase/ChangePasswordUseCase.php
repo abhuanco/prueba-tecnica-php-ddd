@@ -3,6 +3,7 @@
 namespace App\User\Application\UseCase {
 
     use App\User\Application\Dto\UpdatePasswordRequest;
+    use App\User\Domain\Event\ChangePasswordEvent;
     use App\User\Domain\Exceptions\UserNotFoundException;
     use App\User\Domain\Exceptions\WeakPasswordException;
     use App\User\Domain\Interfaces\UserRepositoryInterface;
@@ -24,16 +25,24 @@ namespace App\User\Application\UseCase {
         public function execute(UpdatePasswordRequest $request): void
         {
             $user = $this->repository->findById(new UserId($request->id));
-            if(!$user) {
+            if (!$user) {
                 throw new UserNotFoundException("User `$request->id` not found", 404);
             }
 
-            $password = new Password($user->getPassword(), true);
-            if(!$password->verify($request->oldPassword)) {
+            $currentHashPassword = (string)$user->getPassword();
+            $oldPasswordHashed = new Password($currentHashPassword, true);
+
+            if (!$oldPasswordHashed->verify($request->oldPassword)) {
                 throw new WeakPasswordException("La contraseña actual no coincide.");
             }
+
+            if ($oldPasswordHashed->verify($request->newPassword)) {
+                throw new WeakPasswordException("La nueva contraseña no puede ser igual a la anterior.");
+            }
+
             $user->setPassword(new Password($request->newPassword));
             $this->repository->save($user);
+            $this->eventDispatcher->dispatch(new ChangePasswordEvent($user));
         }
     }
 }
