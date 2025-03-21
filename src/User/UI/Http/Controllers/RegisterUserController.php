@@ -18,7 +18,7 @@ namespace App\User\UI\Http\Controllers {
             $this->httpErrorHandlerMiddleware = new HttpErrorHandlerMiddleware();
         }
 
-        public function register(Request $request): void
+        public function __invoke(Request $request): void
         {
             $this->httpErrorHandlerMiddleware->handle(next: function () use ($request): void {
                 $data = $request->getParsedBody();

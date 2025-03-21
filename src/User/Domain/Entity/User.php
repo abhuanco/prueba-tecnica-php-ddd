@@ -70,5 +70,25 @@ namespace App\User\Domain\Entity {
         {
             return $this->createdAt;
         }
+
+        public function setName(Name $name): void
+        {
+            $this->name = $name;
+        }
+
+        public function setEmail(Email $email): void
+        {
+            $this->email = $email;
+        }
+
+        public function setPassword(Password $password): void
+        {
+            $this->password = $password;
+        }
+
+        public function setCreatedAt(DateTimeImmutable $createdAt): void
+        {
+            $this->createdAt = $createdAt;
+        }
     }
 }

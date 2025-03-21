@@ -10,6 +10,8 @@ services:
       - "9090:80"
     depends_on:
       - app
+    networks:
+      - netphp
 
   app:
     build: docker/php
@@ -23,6 +25,8 @@ services:
       XDEBUG_CONFIG: client_host=host.docker.internal
       PHP_IDE_CONFIG: "serverName=architecture.php.ddd"
       XDEBUG_REMOTE_CONNECT_BACK: 1
+    networks:
+      - netphp
 
   mysql:
     image: mysql:5.7
@@ -37,6 +41,12 @@ services:
       - "${MYSQL_PORT}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - netphp
 
 volumes:
   mysql_data:
+
+networks:
+    netphp:
+        driver: bridge

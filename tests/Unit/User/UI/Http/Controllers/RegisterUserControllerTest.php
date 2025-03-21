@@ -45,7 +45,7 @@ namespace Tests\Unit\User\UI\Http\Controllers {
             $controller = new RegisterUserController($this->useCaseMock);
 
             ob_start();
-            $controller->register($this->requestMock);
+            $controller->__invoke($this->requestMock);
             $output = ob_get_clean();
 
             $expected = json_encode([
@@ -77,7 +77,7 @@ namespace Tests\Unit\User\UI\Http\Controllers {
             $controller = new RegisterUserController($this->useCaseMock);
 
             ob_start();
-            $controller->register($this->requestMock);
+            $controller->__invoke($this->requestMock);
             $output = ob_get_clean();
 
             $response = json_decode($output, true);
@@ -105,7 +105,7 @@ namespace Tests\Unit\User\UI\Http\Controllers {
             $controller = new RegisterUserController($this->useCaseMock);
 
             ob_start();
-            $controller->register($this->requestMock);
+            $controller->__invoke($this->requestMock);
             $output = ob_get_clean();
 
             $response = json_decode($output, true);
@@ -134,7 +134,7 @@ namespace Tests\Unit\User\UI\Http\Controllers {
             $controller = new RegisterUserController($this->useCaseMock);
 
             ob_start();
-            $controller->register($this->requestMock);
+            $controller->__invoke($this->requestMock);
             $output = ob_get_clean();
 
             $response = json_decode($output, true);
