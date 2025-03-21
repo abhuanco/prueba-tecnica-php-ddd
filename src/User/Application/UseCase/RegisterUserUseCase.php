@@ -19,18 +19,10 @@ namespace App\User\Application\UseCase {
     use App\User\Domain\ValueObjects\UserId;
     use App\User\Infrastructure\Event\EventDispatcherInterface;
 
-    class RegisterUserUseCase
+    readonly class RegisterUserUseCase
     {
-        private UserRepositoryInterface $userRepository;
-        private EventDispatcherInterface $eventDispatcher;
-
-        public function __construct(
-            UserRepositoryInterface  $userRepository,
-            EventDispatcherInterface $eventDispatcher
-        )
+        public function __construct(private UserRepositoryInterface $userRepository, private EventDispatcherInterface $eventDispatcher)
         {
-            $this->userRepository = $userRepository;
-            $this->eventDispatcher = $eventDispatcher;
         }
 
         /**

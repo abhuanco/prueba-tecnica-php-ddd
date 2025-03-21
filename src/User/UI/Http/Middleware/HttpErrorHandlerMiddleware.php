@@ -27,7 +27,7 @@ namespace App\User\UI\Http\Middleware {
             http_response_code($statusCode);
             header('Content-Type: application/json');
 
-            $response = new Response($statusCode, $exception->getMessage());
+            $response = new Response($statusCode, 'Conflict', $exception->getMessage());
             $response->sendJsonResponse();
         }
     }

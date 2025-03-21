@@ -44,5 +44,13 @@ namespace App\User\Infrastructure\Persistence {
         {
             return $this->repository->findOneBy(['email' => $email]);
         }
+
+        /**
+         * @return User[]
+         */
+        public function getAll(): array
+        {
+            return $this->repository->findAll();
+        }
     }
 }
