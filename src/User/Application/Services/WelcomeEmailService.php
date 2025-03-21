@@ -14,7 +14,7 @@ namespace App\User\Application\Services {
 
         public function __construct(LoggerInterface $logger)
         {
-            $this->mailer = new PHPMailer(true);
+            $this->mailer = new PHPMailer();
             $this->logger = $logger;
             $this->setupMailer();
         }
@@ -26,8 +26,7 @@ namespace App\User\Application\Services {
             $this->mailer->SMTPAuth = true;
             $this->mailer->Username = $_ENV['SMTP_USER'] ?? 'tu-usuario';
             $this->mailer->Password = $_ENV['SMTP_PASS'] ?? 'tu-contraseña';
-            $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $this->mailer->Port = 587;
+            $this->mailer->Port = $_ENV['SMTP_PORT'] ?? 25;
             $this->mailer->setFrom('ddd@gmail.com', 'Domain Driven Design LLC');
         }
 

@@ -12,6 +12,7 @@ use App\User\Infrastructure\Event\SimpleEventDispatcher;
 use App\User\Infrastructure\Event\UserRegisteredEventHandler;
 use App\User\Infrastructure\Persistence\DoctrineUserRepository;
 use App\User\UI\Http\Api\Request;
+use App\User\UI\Http\Api\Response;
 use App\User\UI\Http\Controllers\ListUsersController;
 use App\User\UI\Http\Controllers\RegisterUserController;
 use App\User\UI\Http\Controllers\UpdatePasswordController;
@@ -29,17 +30,17 @@ if ($method === 'GET' && $uri === '/') {
     $useCase = new ListUserUseCase($repository);
     $controller = new ListUsersController($useCase);
     $controller->__invoke(new Request());
-}
-
-if ($method === 'POST' && $uri === '/register') {
+} elseif ($method === 'POST' && $uri === '/register') {
     $useCase = new RegisterUserUseCase($repository, $dispatcher);
     $controller = new RegisterUserController($useCase);
     $controller->__invoke(new Request());
-}
-
-if ($method === 'PUT' && $uri === '/change-password') {
+} elseif ($method === 'PUT' && $uri === '/change-password') {
     $useCase = new ChangePasswordUseCase($repository, $dispatcher);
     $controller = new UpdatePasswordController($useCase);
     $controller->__invoke(new Request());
+} else {
+    $response = new Response(404, 'Not Found');
+    $response->sendJsonResponse();
 }
+
 
