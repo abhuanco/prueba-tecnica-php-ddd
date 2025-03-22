@@ -1,0 +1,4 @@
+Crear un value object
+teléfono
+> 8 < 12
+que no permita caracteres especiales

@@ -10,12 +10,14 @@ namespace App\User\Application\UseCase {
     use App\User\Domain\Exceptions\BadRequestFieldException;
     use App\User\Domain\Exceptions\FieldRequiredException;
     use App\User\Domain\Exceptions\InvalidEmailException;
+    use App\User\Domain\Exceptions\InvalidTelephoneNumberException;
     use App\User\Domain\Exceptions\UserAlreadyExistsException;
     use App\User\Domain\Exceptions\WeakPasswordException;
     use App\User\Domain\Interfaces\UserRepositoryInterface;
     use App\User\Domain\ValueObjects\Email;
     use App\User\Domain\ValueObjects\Name;
     use App\User\Domain\ValueObjects\Password;
+    use App\User\Domain\ValueObjects\Telephone;
     use App\User\Domain\ValueObjects\UserId;
     use App\User\Infrastructure\Event\EventDispatcherInterface;
 
@@ -41,6 +43,7 @@ namespace App\User\Application\UseCase {
          * @throws InvalidEmailException
          * @throws BadRequestFieldException
          * @throws WeakPasswordException
+         * @throws InvalidTelephoneNumberException
          */
         public function execute(RegisterUserRequest $request): UserResponseDTO
         {
@@ -51,6 +54,7 @@ namespace App\User\Application\UseCase {
             $user = new User(
                 new UserId(),
                 new Name($request->name),
+                new Telephone($request->telephone),
                 new Email($request->email),
                 new Password($request->password)
             );
@@ -63,6 +67,7 @@ namespace App\User\Application\UseCase {
             return new UserResponseDTO(
                 (string)$user->getId(),
                 (string)$user->getName(),
+                (string)$user->getTelephone(),
                 (string)$user->getEmail(),
                 $user->getCreatedAt()->format('Y-m-d H:i:s')
             );

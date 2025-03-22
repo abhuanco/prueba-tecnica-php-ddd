@@ -5,15 +5,8 @@ namespace App\User\Application\Dto {
 
     final class RegisterUserRequest
     {
-        public string $name;
-        public string $email;
-        public string $password;
-
-        public function __construct(string $name, string $email, string $password)
+        public function __construct(public string $name, public string $telephone, public string $email, public string $password)
         {
-            $this->name = $name;
-            $this->email = $email;
-            $this->password = $password;
         }
     }
 }

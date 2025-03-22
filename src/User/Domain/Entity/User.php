@@ -6,6 +6,7 @@ namespace App\User\Domain\Entity {
     use App\User\Domain\ValueObjects\Email;
     use App\User\Domain\ValueObjects\Name;
     use App\User\Domain\ValueObjects\Password;
+    use App\User\Domain\ValueObjects\Telephone;
     use App\User\Domain\ValueObjects\UserId;
     use DateTimeImmutable;
 
@@ -25,6 +26,10 @@ namespace App\User\Domain\Entity {
         private Name $name;
         #[Column(name: 'email', type: 'email_type', length: 150, unique: true)]
         private Email $email;
+
+        #[Column(name: 'telephone', type: 'string', length: 12)]
+        private Telephone $telephone;
+
         #[Column(name: 'password', type: 'password_type', length: 150)]
         private Password $password;
 
@@ -34,6 +39,7 @@ namespace App\User\Domain\Entity {
         public function __construct(
             ?UserId            $id,
             Name               $name,
+            Telephone          $telephone,
             Email              $email,
             Password           $password,
             ?DateTimeImmutable $createdAt = null
@@ -42,6 +48,7 @@ namespace App\User\Domain\Entity {
             $this->id = $id ?? new UserId();
             $this->name = $name;
             $this->email = $email;
+            $this->telephone = $telephone;
             $this->password = $password;
             $this->createdAt = $createdAt ?? new DateTimeImmutable();
         }
@@ -90,5 +97,16 @@ namespace App\User\Domain\Entity {
         {
             $this->createdAt = $createdAt;
         }
+
+        public function getTelephone(): Telephone
+        {
+            return $this->telephone;
+        }
+
+        public function setTelephone(Telephone $telephone): void
+        {
+            $this->telephone = $telephone;
+        }
+
     }
 }

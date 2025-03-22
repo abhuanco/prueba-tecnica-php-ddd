@@ -23,7 +23,7 @@ namespace App\User\UI\Http\Controllers {
             $this->httpErrorHandlerMiddleware->handle(next: function () use ($request): void {
                 $data = $request->getParsedBody();
 
-                $registerUserRequest = new RegisterUserRequest(name: $data['name'] ?? '', email: $data['email'] ?? '', password: $data['password'] ?? '');
+                $registerUserRequest = new RegisterUserRequest(name: $data['name'] ?? '', telephone: $data['telephone'] ?? '', email: $data['email'] ?? '', password: $data['password'] ?? '');
 
                 $userResponseDTO = $this->useCase->execute($registerUserRequest);
                 $response = new Response(201, 'OK', $userResponseDTO);
